@@ -23,8 +23,12 @@ const voteSchema = new mongoose.Schema({
     min: -1,
     max: 1,
   },
+  ipAddress: {
+    type: String,
+  },
 }, {
   timestamps: true,
+  required: true,
 });
 
 /**
@@ -70,6 +74,8 @@ voteSchema.statics = {
     });
   },
 };
+
+voteSchema.index({ commentId: 1, userId: 1 }, { unique: true });
 
 /**
  * @typedef Vote

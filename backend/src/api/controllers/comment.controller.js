@@ -3,6 +3,7 @@ const { _ } = require('lodash');
 const Comment = require('../models/comment.model');
 const Vote = require('../models/vote.model');
 const { checkIsOwnerOfResurce } = require('../utils/helpers/resourceOwner');
+const APIError = require('../errors/api-error');
 
 /**
  * Load comment and append to req.
@@ -82,9 +83,16 @@ exports.remove = async (req, res, next) => {
  */
 exports.addVote = async (req, res, next) => {
   try {
-    // console.log('yyyyyyyyyyyyyy');
     const { comment } = req.locals;
     const { rating } = req.query;
+
+    const voteCnt = await Vote.count({ userId: req.user._id, commentId: comment._id });
+    if (voteCnt !== 0) {
+      throw new APIError({
+        status: httpStatus.BAD_REQUEST,
+        message: 'Unable to perform vote. User already voted.',
+      });
+    }
 
     const vote = new Vote(_.assign(req.body, {
       userId: req.user._id,
@@ -93,7 +101,6 @@ exports.addVote = async (req, res, next) => {
     }));
     const savedVote = await vote.save();
 
-    console.log(comment);
     if (rating === 1) {
       await Comment.findOneAndUpdate({ _id: comment._id }, { $inc: { nUpvotes: 1 } });
     } else if (rating === -1) {
