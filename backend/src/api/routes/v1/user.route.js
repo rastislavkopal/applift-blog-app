@@ -4,6 +4,7 @@ const controller = require('../../controllers/user.controller');
 const { authorize, ADMIN, LOGGED_USER } = require('../../middlewares/auth');
 const {
   listUsers,
+  listUsersArticles,
 } = require('../../validations/user.validation');
 
 const router = express.Router({ mergeParams: true });
@@ -59,5 +60,26 @@ router
    * @apiError (Not Found 404)    NotFound     User does not exist
    */
   .get(authorize(LOGGED_USER), controller.get);
+
+// User's article
+router
+  .route('/:userId/articles')
+  /**
+   * @api {get} v1/users/:userId/articles Get list of user's articles
+   * @apiDescription Get list of user's articles
+   * @apiVersion 1.0.0
+   * @apiName GetUsersArticles
+   * @apiGroup Article
+   * @apiPermission user
+   *
+   * @apiParam  {Number{1-}}         [page=1]     List page
+   * @apiParam  {Number{1-100}}      [perPage=1]  Users per page
+   *
+   * @apiSuccess {Object[]} user's List of articles.
+   *
+   * @apiError (Unauthorized 401)  Unauthorized  Only authenticated users can access the data
+   * @apiError (Forbidden 403)     Forbidden     Only admins can access the data
+   */
+  .get(authorize(LOGGED_USER), validate(listUsersArticles), controller.getUsersArticles);
 
 module.exports = router;

@@ -18,7 +18,7 @@ entity "User" as user {
 entity "Article" as article {
   *_id : text <<generated>>
   --
-  *addedBy : text <<FK>>
+  *userId : text <<FK>>
   *title: text
   *text : text
 }

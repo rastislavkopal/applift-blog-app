@@ -1,5 +1,6 @@
 const { _ } = require('lodash');
 const User = require('../models/user.model');
+const Article = require('../models/article.model');
 
 /**
  * Load user and append to req.
@@ -34,5 +35,20 @@ exports.list = async (req, res, next) => {
     res.json(transformedUsers);
   } catch (error) {
     next(error);
+  }
+};
+
+/**
+ * Get list of user's articles
+ * @public
+ */
+exports.getUsersArticles = async (req, res, next) => {
+  try {
+    req.query.userId = req.user.id; // add current userId to req.query to be parsed in db query
+    const articles = await Article.userArticlesList(req.query);
+    const transformedArticles = articles.map((x) => x.transform());
+    res.json(transformedArticles);
+  } catch (e) {
+    next(e);
   }
 };
