@@ -1,0 +1,60 @@
+name: applifting be app CI 
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches: [ main ]
+    
+env:
+  NODE_ENV: test
+  PORT: 3000
+  JWT_SECRET: asdadadadadadsadadadasdasdsdasad
+  JWT_EXPIRATION_MINUTES: 15
+  MONGO_URI: mongodb://localhost/app_be
+  MONGO_URI_TESTS: mongodb://localhost/app_be
+  EMAIL_PORT: 587
+  EMAIL_HOST: smtp-relay.sendinblue.com
+  EMAIL_USERNAME: smtp-username
+  EMAIL_PASSWORD: smtp-password
+
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        mongodb-version: ['6.0']
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: npm install yarn -g
+
+      - name: Build App
+        run: yarn
+          
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: v1-npm-deps-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: v1-npm-deps-
+
+      - name: Start MongoDB
+        uses: supercharge/mongodb-github-action@1.8.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+
+      - run: yarn validate
+

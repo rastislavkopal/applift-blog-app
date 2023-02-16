@@ -1,0 +1,46 @@
+@startuml
+left to right direction
+
+"Visitor" as Visitor
+"User with JWT" as User
+"Admin" as Admin
+
+package "Blog app" {
+
+  User --|> Admin
+
+  usecase UC0 as "Register and login user"
+
+  usecase UC1 as "List hottest articles"
+
+  usecase UC2 as "Show article detail"
+
+  usecase UC3 as "Add new article"
+
+  usecase UC4 as "Edit my article"
+
+  usecase UC5 as "Add comment to article"
+
+  usecase UC6 as "Vote on comment of articles"
+
+  usecase UC7 as "Show users"
+  usecase UC8 as "Block user"
+
+  ' note right of UC1
+  '   Com
+  ' end note
+
+    Visitor -- UC0
+    Visitor -- UC1
+    Visitor -- UC2
+    
+    User -- UC3
+    User -- UC4
+    User -- UC5
+    User -- UC6
+    
+    Admin -- UC7
+    Admin -- UC8
+
+}
+@enduml

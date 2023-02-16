@@ -1,0 +1,50 @@
+@startuml Entity relations
+' hide the spot
+hide circle
+
+' avoid problems with angled crows feet
+skinparam linetype ortho
+
+entity "User" as user {
+  *_id : string <<generated>>
+  --
+  *email : text
+  *password : text
+  *firstName : text
+  *lastName: text
+  *role : enum
+}
+
+entity "Article" as article {
+  *_id : text <<generated>>
+  --
+  *addedBy : text <<FK>>
+  *title: text
+  *text : text
+}
+
+
+entity "Article comment" as comment {
+  *_id : text <<generated>>
+  --
+  *userId : text <<FK>>
+  *articleId: text <<FK>>
+  *text: text
+}
+
+Entity "Comment vote" as vote {
+  *_id : text <<generated>>
+  --
+  *userId : text <<FK>>
+  *commentId: text <<FK>>
+  *text
+  *vote: {-1, 1}
+}
+
+user ||..o{ article
+user ||..o{ comment
+article ||..o{ comment
+comment ||..o{ vote
+user ||..o{ vote
+
+@enduml
