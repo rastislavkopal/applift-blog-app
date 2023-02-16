@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const { _ } = require('lodash');
 const Comment = require('../models/comment.model');
+const Vote = require('../models/vote.model');
 const { checkIsOwnerOfResurce } = require('../utils/helpers/resourceOwner');
 
 /**
@@ -70,6 +71,37 @@ exports.remove = async (req, res, next) => {
     comment.remove()
       .then(() => res.status(httpStatus.NO_CONTENT).end())
       .catch((e) => next(e));
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * Vote for a comment
+ * @public
+ */
+exports.addVote = async (req, res, next) => {
+  try {
+    // console.log('yyyyyyyyyyyyyy');
+    const { comment } = req.locals;
+    const { rating } = req.query;
+
+    const vote = new Vote(_.assign(req.body, {
+      userId: req.user._id,
+      rating,
+      commentId: comment._id,
+    }));
+    const savedVote = await vote.save();
+
+    console.log(comment);
+    if (rating === 1) {
+      await Comment.findOneAndUpdate({ _id: comment._id }, { $inc: { nUpvotes: 1 } });
+    } else if (rating === -1) {
+      await Comment.findOneAndUpdate({ _id: comment._id }, { $inc: { nDownvotes: 1 } });
+    }
+
+    res.status(httpStatus.CREATED);
+    res.json(savedVote.transform());
   } catch (error) {
     next(error);
   }

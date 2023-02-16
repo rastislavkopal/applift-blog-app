@@ -16,4 +16,11 @@ module.exports = {
       text: Joi.string().min(6).max(512).required(),
     },
   },
+
+  // POST /v1/articles/:id/comments/:commentId/vote?rating=1
+  addVote: {
+    query: {
+      rating: Joi.number().min(-1).max(1),
+    },
+  },
 };

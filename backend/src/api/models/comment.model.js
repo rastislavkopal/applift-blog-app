@@ -28,6 +28,20 @@ const commentSchema = new mongoose.Schema({
     maxlength: 512,
     index: 'text',
   },
+  votes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Vote',
+    },
+  ],
+  nUpvotes: {
+    type: Number,
+    default: 0,
+  },
+  nDownvotes: {
+    type: Number,
+    default: 0,
+  },
 }, {
   timestamps: true,
 });
@@ -38,7 +52,7 @@ const commentSchema = new mongoose.Schema({
 commentSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['_id', 'userId', 'articleId', 'commentId', 'text', 'createdAt'];
+    const fields = ['_id', 'userId', 'articleId', 'commentId', 'text', 'createdAt', 'votes', 'nUpvotes', 'nDownvotes'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
