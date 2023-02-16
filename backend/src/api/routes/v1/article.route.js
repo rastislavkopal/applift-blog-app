@@ -1,7 +1,7 @@
 const express = require('express');
 const validate = require('express-validation');
 const controller = require('../../controllers/article.controller');
-// const commentRoutes = require('./comment.route');
+const commentRoutes = require('./comment.route');
 const { authorize } = require('../../middlewares/auth');
 const {
   listArticles,
@@ -142,7 +142,7 @@ router
    */
   .delete(authorize(), controller.remove);
 
-// include nested - Comment routes TODO
-// router.use('/:articleId/comments', commentRoutes);
+// include nested - Comment routes
+router.use('/:articleId/comments', commentRoutes);
 
 module.exports = router;

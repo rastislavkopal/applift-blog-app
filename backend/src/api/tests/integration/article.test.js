@@ -158,7 +158,6 @@ describe('Article API', async () => {
         .then(async (res) => {
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.a.property('title');
-          expect(res.body).to.have.a.property('claims');
           expect(res.body).to.have.a.property('language');
 
           expect(res.body.userId).to.have.a.property('firstName');

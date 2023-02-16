@@ -1,4 +1,5 @@
 # Applifting - test - BE for blog app
+[![be_api CI](https://github.com/rastislavkopal/applift-blog-app/actions/workflows/be_service.yml/badge.svg)](https://github.com/rastislavkopal/applift-blog-app/actions/workflows/be_service.yml)
 
 ## Use cases:
 

@@ -24,11 +24,12 @@ entity "Article" as article {
 }
 
 
-entity "Article comment" as comment {
+entity "Comment" as comment {
   *_id : text <<generated>>
   --
   *userId : text <<FK>>
   *articleId: text <<FK>>
+  *commentId: text <<FK>>
   *text: text
 }
 
@@ -45,6 +46,7 @@ user ||..o{ article
 user ||..o{ comment
 article ||..o{ comment
 comment ||..o{ vote
+comment ||..o{ comment
 user ||..o{ vote
 
 @enduml
