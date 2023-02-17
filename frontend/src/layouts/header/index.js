@@ -22,8 +22,8 @@ export default function CustomHeader() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" activeKey={location.pathname}>
-            <Nav.Link as={Link} to="/" active={location.pathname === '/'}>Home</Nav.Link>
-            <Nav.Link as={Link} to="/article/create" active={location.pathname === '/article/create'}>Add article</Nav.Link>
+            <Nav.Link as={Link} to="/" active={location.pathname === '/'}>Articles</Nav.Link>
+            <Nav.Link as={Link} to="/articles/create" active={location.pathname === '/articles/create'}>Add article</Nav.Link>
           </Nav>
           <Nav activeKey={location.pathname}>
             <Nav.Link as={Link} to="/logout" active={location.pathname === '/logout'}>logout</Nav.Link>

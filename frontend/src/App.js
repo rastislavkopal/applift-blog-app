@@ -13,6 +13,7 @@ import Footer from './layouts/footer';
 import SignIn from './layouts/authentication/sign-in';
 import SignUp from './layouts/authentication/sign-up';
 import Logout from './layouts/authentication/logout';
+import Article from './layouts/article';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Header />
         <Routes>
           <Route exact path="/" element={<Home />} />
+          <Route path="/articles/:id" element={<Article />} />
           <Route exact path="/sign-in" element={<SignIn />} />
           <Route exact path="/sign-up" element={<SignUp />} />
           <Route exact path="/logout" element={<Logout />} />

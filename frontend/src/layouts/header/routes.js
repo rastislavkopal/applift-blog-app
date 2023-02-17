@@ -6,7 +6,7 @@ const locSharedRoutes = [{
   disabled: false,
 }, {
   name: 'New article',
-  link: '/article/create',
+  link: '/articles/create',
   navKey: 1,
   disabled: false,
 }];

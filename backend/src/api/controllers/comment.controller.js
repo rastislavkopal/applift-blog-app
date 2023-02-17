@@ -1,5 +1,6 @@
 const httpStatus = require('http-status');
 const { _ } = require('lodash');
+const Article = require('../models/article.model');
 const Comment = require('../models/comment.model');
 const Vote = require('../models/vote.model');
 const { checkIsOwnerOfResurce } = require('../utils/helpers/resourceOwner');
@@ -35,6 +36,8 @@ exports.create = async (req, res, next) => {
       userId: req.user._id,
       articleId: req.locals.article._id,
     }));
+
+    await Article.findOneAndUpdate({ _id: req.locals.article._id }, { $inc: { comments: 1 } });
     const savedComment = await comment.save();
     res.status(httpStatus.CREATED);
     res.json(savedComment.transform());
