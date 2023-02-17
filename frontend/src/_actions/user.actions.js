@@ -60,9 +60,18 @@ export default function useUserActions() {
       });
   }
 
+  function vote(articleId, commentId, rating) {
+    return fetchWrapper.post(`${baseUrl}/v1/articles/${articleId}/comments/${commentId}/vote?rating=${rating}`)
+      .then((res) => res)
+      .catch((error) => {
+        message.error(error);
+      });
+  }
+
   return {
     login,
     logout,
     signup,
+    vote,
   };
 }

@@ -88,7 +88,7 @@ export default function Dashboard() {
                 </Row>
                 <Row>
                   <Typography.Text italic>
-                    {`${item.userId.firstName} ${item.userId.lastName} • ${new Date(item.createdAt).toISOString().substring(0, 10)}`}
+                    {`${item.userId.firstName} ${item.userId.lastName} • ${item.createdAt.substring(0, 10)}`}
                   </Typography.Text>
                 </Row>
                 <Divider />

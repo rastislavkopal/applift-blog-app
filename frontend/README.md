@@ -7,6 +7,10 @@ Uses:
 
 ## Available Scripts
 
+Leave the default env values or change as needed:
+
+### `cp .env.example .env`
+
 In the project directory, you can run:
 
 ### `yarn start`
