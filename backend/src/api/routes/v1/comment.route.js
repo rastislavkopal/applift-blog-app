@@ -45,9 +45,13 @@ router
    *
    * @apiParam  {String}             text      Comment's text
    *
+   * @apiSuccess (Created 201) {String}  _id          Comment's id
    * @apiSuccess (Created 201) {String}  text         Comment's text
    * @apiSuccess (Created 201) {String}  userId       User id who added
    * @apiSuccess (Created 201) {String}  articleId    Article id
+   * @apiSuccess (Created 201) {Object}  userId       Object of the user who created it
+   * @apiSuccess (Created 201) {Number}  nUpvotes     Number of up-votes for the comment
+   * @apiSuccess (Created 201) {Number}  nDownvotes     Number of down-votes for the comment
    * @apiSuccess (Created 201) {Date}    createdAt    Timestamp
    *
    * @apiError (Bad Request 400)   ValidationError  Some parameters may contain invalid values
@@ -67,11 +71,12 @@ router
    *
    * @apiHeader {String} Authorization   User's access token
    *
-   * @apiSuccess {String}  id             Comment's id
+   * @apiSuccess {String}  _id            Comment's id
    * @apiSuccess {String}  text           Comment's text
-   * @apiSuccess {Object}  userId         User object  who added
+   * @apiSuccess {Object}  userId         User object  who added the resource
    * @apiSuccess {Object}  articleId      Associated article (creation)
-   * @apiSuccess {String}  language       Language of article
+   * @apiSuccess {Number}  nUpvotes       Number of up-votes for the comment
+   * @apiSuccess {Number}  nDownvotes     Number of down-votes for the comment
    * @apiSuccess {Date}    createdAt      Timestamp
    *
    * @apiError (Not Found 404)    NotFound     Comment does not exist
@@ -108,8 +113,10 @@ router
    *
    * @apiParam  {Number{1-}}         [rating=1]     Rating, positive=1, negative=-1
    *
+   * @apiSuccess (Created 201) {String}  _id          Resource id
    * @apiSuccess (Created 201) {String}  userId       User id who added
    * @apiSuccess (Created 201) {String}  commentId    Comment id
+   * @apiSuccess (Created 201) {Number}  rating       Either positive or negative rating
    * @apiSuccess (Created 201) {Date}    createdAt    Timestamp
    *
    * @apiError (Bad Request 400)   ValidationError  Some parameters may contain invalid values

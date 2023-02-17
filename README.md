@@ -2,12 +2,17 @@
 
 Each folder has separate README.md with description
 
+## docs folder
+
+Contains
+ - generated API documentation for all endpoints of system with required payload and example response
+
 ## backend
 
 Contains:
  - CI (Github actions) pipeline is set-up and ready, but would need separate repo for backend itself.
  - Project structure used by (https://github.com/danielfsousa/express-rest-boilerplate -> auth and project struct) -> its a repository that I use always for my personal projects 
- - System docs in ./backend/sys_focs folder -> ER diagrams and use cases
+ - System docs in ./backend/uml_design folder -> ER diagrams and use cases
  - UML docs can be generate in backend folder using `yarn docs` -> open in browser: backend/docs/index.html
  - You can run the backend as docker-compose that will create both MongoDB and api service
  - To run backend, follow instruction in ./backend/readme.md file

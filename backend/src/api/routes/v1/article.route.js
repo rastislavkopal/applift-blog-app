@@ -50,7 +50,9 @@ router
    *
    * @apiSuccess (Created 201) {String}  _id            Article id
    * @apiSuccess (Created 201) {String}  userId         Id of user who added the article
+   * @apiSuccess (Created 201) {String}  title          Title of article
    * @apiSuccess (Created 201) {String}  text           Text of article
+   * @apiSuccess (Created 201) {Number}  comments       Number of comments
    * @apiSuccess (Created 201) {String}  language       Language of article
    * @apiSuccess (Created 201) {Date}    createdAt      Timestamp
    *
@@ -72,8 +74,10 @@ router
    * @apiHeader {String} Authorization   User's access token
    *
    * @apiSuccess {String}  _id            Article's id
-   * @apiSuccess {Object}  userId        User object who added the article
+   * @apiSuccess {Object}  userId         User object who added the article
    * @apiSuccess {String}  text           Text of article
+   * @apiSuccess {String}  title          Title of article
+   * @apiSuccess {Number}  comments       Number of comments
    * @apiSuccess {String}  language       Language of article
    * @apiSuccess {Date}    createdAt      Timestamp
    *
@@ -90,14 +94,15 @@ router
    *
    * @apiHeader {String} Authorization   User's access token
    *
-   * @apiParam  {String{6..16448}}                text          Article text
-   * @apiParam  {String{..128}}                   sourceUrl     SorceUrl of article
-   * @apiParam  {String=article,tv,radio,other}   sourceType    Source type of article
-   * @apiParam  {String=cz,sk,en}                 language      Article language
+   * @apiParam  {String{6..256}}                title         Article title
+   * @apiParam  {String{6..16448}}              text          Article text
+   * @apiParam  {String=cz,sk,en}               language      Article language
    *
    * @apiSuccess (Created 201) {String}  _id            Article id
    * @apiSuccess (Created 201) {String}  userId        Id of user who added the article
    * @apiSuccess (Created 201) {String}  text           Text of article
+   * @apiSuccess (Created 201) {String}  title           Title of article
+   * @apiSuccess (Created 201) {Number}  comments       Number of comments
    * @apiSuccess (Created 201) {String}  language       Language of article
    * @apiSuccess (Created 201) {Date}    createdAt      Timestamp
    *
