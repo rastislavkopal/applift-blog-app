@@ -68,10 +68,28 @@ export default function useUserActions() {
       });
   }
 
+  function userArticles(userId) {
+    return fetchWrapper.get(`${baseUrl}/v1/users/${userId}/articles`)
+      .then((res) => res)
+      .catch((error) => {
+        message.error(error);
+      });
+  }
+
+  function submitComment(articleId, text) {
+    return fetchWrapper.post(`${baseUrl}/v1/articles/${articleId}/comments`, text)
+      .then((res) => res)
+      .catch((error) => {
+        message.error(error);
+      });
+  }
+
   return {
     login,
     logout,
     signup,
     vote,
+    userArticles,
+    submitComment,
   };
 }

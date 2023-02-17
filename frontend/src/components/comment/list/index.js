@@ -10,20 +10,26 @@ import useUserActions from '../../../_actions/user.actions';
 const { Content } = Layout;
 const { Title } = Typography;
 
+const sortFunction = (a, b) => {
+  const dateA = new Date(a.createdAt).getTime();
+  const dateB = new Date(b.createdAt).getTime();
+  return dateA < dateB ? 1 : -1;
+};
+
 export default function CommentsList({ articleId, comments }) {
   const userActions = useUserActions();
+  comments.sort(sortFunction);
 
   return (
     <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
       <Title>Recent comments</Title>
       <List
+        locale="No comments yet"
         size="large"
         itemLayout="vertical"
         bordered
         pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
+          onChange: () => {},
           pageSize: 5,
         }}
         dataSource={comments}

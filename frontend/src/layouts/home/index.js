@@ -13,6 +13,12 @@ import authAtom from '../../_state/auth';
 const { Content } = Layout;
 const { Title, Link } = Typography;
 
+const sortFunction = (a, b) => {
+  const dateA = new Date(a.createdAt).getTime();
+  const dateB = new Date(b.createdAt).getTime();
+  return dateA < dateB ? 1 : -1;
+};
+
 export default function Dashboard() {
   const fetchWrapper = useFetchWrapper();
   const [articles, serArticles] = useState([]);
@@ -21,10 +27,8 @@ export default function Dashboard() {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    // redirect to home if already logged in
-    if (!auth) {
-      navigate('/sign-in');
-    }
+    if (!auth) navigate('/sign-in');
+
     async function fetchPhotos() {
       const result = await axios(
         'http://shibe.online/api/cats?count=10',
@@ -33,35 +37,27 @@ export default function Dashboard() {
     }
     async function fetchMyAPI() {
       const res = await fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/v1/articles`);
+      res.sort(sortFunction);
       serArticles(res);
     }
 
     fetchMyAPI();
     fetchPhotos();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
       <Title>Recent articles</Title>
       <List
+        locale="No articles yet. Add some!"
         size="large"
         itemLayout="vertical"
         bordered
         pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
+          onChange: () => {},
           pageSize: 5,
         }}
-        // footer={(
-        //   <div>
-        //     <b>ant design</b>
-        //     footer part
-        //   </div>
-        // )}
         dataSource={articles}
-        // eslint-disable-next-line no-unused-vars
         renderItem={(item, idx) => (
           <List.Item
             actions={[

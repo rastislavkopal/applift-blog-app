@@ -6,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { CgProfile } from 'react-icons/cg';
 
 import authAtom from '../../_state/auth';
 
@@ -26,6 +27,9 @@ export default function CustomHeader() {
             <Nav.Link as={Link} to="/articles/create" active={location.pathname === '/articles/create'}>Add article</Nav.Link>
           </Nav>
           <Nav activeKey={location.pathname}>
+            <Nav.Link as={Link} to="/profile" active={location.pathname === '/profile'} style={{ color: 'white' }}>
+              <CgProfile />
+            </Nav.Link>
             <Nav.Link as={Link} to="/logout" active={location.pathname === '/logout'}>logout</Nav.Link>
           </Nav>
         </Navbar.Collapse>

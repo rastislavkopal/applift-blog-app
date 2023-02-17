@@ -9,6 +9,7 @@ import useFetchWrapper from '../../_helpers/fetch_wrapper';
 import authAtom from '../../_state/auth';
 
 import CommentsList from '../../components/comment/list';
+import CreateComment from '../../components/comment/create';
 
 const { Content } = Layout;
 const { Title } = Typography;
@@ -29,7 +30,6 @@ export default function Dashboard() {
     async function fetchMyAPI() {
       const res = await fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/v1/articles/${id}`);
       const resComments = await fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/v1/articles/${id}/comments`);
-      console.log(res, resComments);
       setArticle(res);
       setComments(resComments);
     }
@@ -82,6 +82,7 @@ export default function Dashboard() {
       </Row>
       <Divider />
       <Title level={3}>{`Comments (${comments.length})`}</Title>
+      <CreateComment articleId={id} comments={comments} setComments={setComments} />
       <Row>
         <CommentsList comments={comments} articleId={id} />
       </Row>
