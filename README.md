@@ -5,6 +5,7 @@ Each folder has separate README.md with description
 ## backend
 
 Contains:
+ - CI (Github actions) pipeline is set-up and ready, but would need separate repo for backend itself.
  - Project structure used by (https://github.com/danielfsousa/express-rest-boilerplate -> auth and project struct) -> its a repository that I use always for my personal projects 
  - System docs in ./backend/sys_focs folder -> ER diagrams and use cases
  - UML docs can be generate in backend folder using `yarn docs` -> open in browser: backend/docs/index.html
