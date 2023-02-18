@@ -12,8 +12,8 @@ Contains
 Contains:
  - CI (Github actions) pipeline is set-up and ready, but would need separate repo for backend itself.
  - Project structure used by (https://github.com/danielfsousa/express-rest-boilerplate -> auth and project struct) -> its a repository that I use always for my personal projects 
- - System docs in ./backend/uml_design folder -> ER diagrams and use cases
- - UML docs can be generate in backend folder using `yarn docs` -> open in browser: backend/docs/index.html
+ - System docs in ./backend/uml_design folder -> ER diagrams and use cases (PlantUML scripting language for UML)
+ - API docs can be generate in backend folder using `yarn docs` -> open in browser: backend/docs/index.html
  - You can run the backend as docker-compose that will create both MongoDB and api service
  - To run backend, follow instruction in ./backend/readme.md file
  - some integration tests in that can be run by `yarn test:integration`
@@ -32,6 +32,7 @@ Contains:
  - Auth & Auth using JWT
 
 Not implemented:
+ - Image upload -> would be another form field -> sends base64 encoded buffer..
  - Multitentant app 
  - Edit article, delete article -> its quite straightforward and repetitive task
  - End-to-end tests using Cypress, but I have some experience with it, example on my github for a different project (https://github.com/rastislavkopal/petclinic_cypress_fe_testing)
