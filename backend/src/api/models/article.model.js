@@ -38,6 +38,10 @@ const articleSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  imageId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Image',
+  },
 }, {
   timestamps: true,
 });
@@ -48,7 +52,7 @@ const articleSchema = new mongoose.Schema({
 articleSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['_id', 'title', 'text', 'sourceUrl', 'language', 'comments', 'createdAt'];
+    const fields = ['_id', 'title', 'text', 'sourceUrl', 'language', 'comments', 'imageId', 'createdAt'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
@@ -87,7 +91,7 @@ articleSchema.statics = {
     let article;
 
     if (mongoose.Types.ObjectId.isValid(id)) {
-      article = await this.findById(id).populate('userId').exec();
+      article = await this.findById(id).populate('userId').populate('imageId').exec();
     }
 
     if (article) {

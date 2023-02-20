@@ -2,13 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {
   Layout, Typography, List, Col, Row, Space, Image, Divider,
 } from 'antd';
-import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
-import { useRecoilValue } from 'recoil';
-import axios from 'axios';
 import { AiOutlineDislike, AiOutlineLike, AiOutlineComment } from 'react-icons/ai';
 import useFetchWrapper from '../../_helpers/fetch_wrapper';
-import authAtom from '../../_state/auth';
 
 const { Content } = Layout;
 const { Title, Link } = Typography;
@@ -22,19 +17,8 @@ const sortFunction = (a, b) => {
 export default function Dashboard() {
   const fetchWrapper = useFetchWrapper();
   const [articles, serArticles] = useState([]);
-  const auth = useRecoilValue(authAtom);
-  const navigate = useNavigate();
-  const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    if (!auth) navigate('/sign-in');
-
-    async function fetchPhotos() {
-      const result = await axios(
-        'http://shibe.online/api/cats?count=10',
-      );
-      setPhotos(result.data);
-    }
     async function fetchMyAPI() {
       const res = await fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/v1/articles`);
       res.sort(sortFunction);
@@ -42,11 +26,10 @@ export default function Dashboard() {
     }
 
     fetchMyAPI();
-    fetchPhotos();
   }, []);
 
   return (
-    <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
+    <Content className="site-layout" style={{ padding: '0 10%', marginTop: 64 }}>
       <Title>Recent articles</Title>
       <List
         locale="No articles yet. Add some!"
@@ -58,7 +41,7 @@ export default function Dashboard() {
           pageSize: 5,
         }}
         dataSource={articles}
-        renderItem={(item, idx) => (
+        renderItem={(item) => (
           <List.Item
             actions={[
               <Space icon={AiOutlineDislike} text="156" key="list-vertical-star-o" />,
@@ -73,7 +56,7 @@ export default function Dashboard() {
                 <Image
                   height={250}
                   width={250}
-                  src={photos[idx]}
+                  src={item.imageId.buffer}
                 />
               </Col>
               <Col sm={20} md={14}>

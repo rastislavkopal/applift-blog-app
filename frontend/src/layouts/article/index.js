@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {
   Layout, Typography, Divider, Row, Col, Image,
 } from 'antd';
-import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
-import { useRecoilValue } from 'recoil';
+import { useParams } from 'react-router-dom';
 import useFetchWrapper from '../../_helpers/fetch_wrapper';
-import authAtom from '../../_state/auth';
 
 import CommentsList from '../../components/comment/list';
 import CreateComment from '../../components/comment/create';
@@ -16,32 +13,20 @@ const { Title } = Typography;
 
 export default function Dashboard() {
   const fetchWrapper = useFetchWrapper();
-  const auth = useRecoilValue(authAtom);
-  const navigate = useNavigate();
   const { id } = useParams();
   const [article, setArticle] = useState({});
   // eslint-disable-next-line no-unused-vars
   const [comments, setComments] = useState([]);
-  const [photo, setPhoto] = useState('');
 
   useEffect(() => {
-    if (!auth) navigate('/sign-in');
-
     async function fetchMyAPI() {
       const res = await fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/v1/articles/${id}`);
       const resComments = await fetchWrapper.get(`${process.env.REACT_APP_API_BASE}/v1/articles/${id}/comments`);
       setArticle(res);
       setComments(resComments);
     }
-    async function fetchPhoto() {
-      const result = await axios(
-        'http://shibe.online/api/cats',
-      );
-      setPhoto(result.data[0]);
-    }
 
     fetchMyAPI();
-    fetchPhoto();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -58,7 +43,7 @@ export default function Dashboard() {
           <Divider />
           <Image
             height={300}
-            src={photo}
+            src={article?.imageId?.buffer}
             style={{
               margin: '5px',
             }}

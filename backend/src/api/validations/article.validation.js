@@ -17,6 +17,10 @@ module.exports = {
       title: Joi.string().min(6).max(512).required(),
       text: Joi.string().min(6).max(16448).required(),
       language: Joi.string().valid(Article.languages).required(),
+      image: Joi.object({
+        name: Joi.string().min(6).max(512).required(),
+        buffer: Joi.string().required(),
+      }).required(),
     },
   },
 

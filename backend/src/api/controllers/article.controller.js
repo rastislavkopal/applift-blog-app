@@ -1,6 +1,7 @@
 const httpStatus = require('http-status');
 const { _ } = require('lodash');
 const Article = require('../models/article.model');
+const Image = require('../models/image.model');
 const { checkIsOwnerOfResurce } = require('../utils/helpers/resourceOwner');
 
 /**
@@ -29,8 +30,18 @@ exports.get = (req, res) => res.json(req.locals.article.transform());
  */
 exports.create = async (req, res, next) => {
   try {
-    const article = new Article(_.assign(req.body, { userId: req.user.id }));
+    const { image } = req.body;
+
+    const imageObj = new Image({
+      name: image.name,
+      buffer: image.buffer,
+    });
+    await imageObj.save();
+
+    const article = new Article(_.assign(req.body, { userId: req.user.id, imageId: imageObj._id }));
     const savedArticle = await article.save();
+    savedArticle.imageId = imageObj;
+
     res.status(httpStatus.CREATED);
     res.json(savedArticle.transform());
   } catch (error) {
@@ -85,7 +96,10 @@ exports.update = async (req, res, next) => {
 exports.list = async (req, res, next) => {
   try {
     const { page, perPage } = req.query;
-    const articles = await Article.find().populate('userId').limit(perPage).skip(perPage * (page - 1));
+    const articles = await Article.find()
+      .populate('imageId').populate('userId')
+      .limit(perPage)
+      .skip(perPage * (page - 1));
     const transformedArticles = articles.map((x) => x.transform());
 
     res.json(transformedArticles);

@@ -23,6 +23,13 @@ entity "Article" as article {
   *text : text
 }
 
+entity "Image" as image {
+  *_id : text <<generated>>
+  --
+  *name : text <<FK>>
+  *buffer: text
+}
+
 
 entity "Comment" as comment {
   *_id : text <<generated>>
@@ -45,6 +52,7 @@ Entity "Comment vote" as vote {
 user ||..o{ article
 user ||..o{ comment
 article ||..o{ comment
+article ||..o| image
 comment ||..o{ vote
 comment ||..o{ comment
 user ||..o{ vote

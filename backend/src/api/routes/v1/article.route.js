@@ -1,5 +1,6 @@
 const express = require('express');
 const validate = require('express-validation');
+const multer = require('multer');
 const controller = require('../../controllers/article.controller');
 const commentRoutes = require('./comment.route');
 const { authorize } = require('../../middlewares/auth');
@@ -9,6 +10,8 @@ const {
   replaceArticle,
   updateArticle,
 } = require('../../validations/article.validation');
+
+const upload = multer({ dest: 'uploads/' });
 
 const router = express.Router({ mergeParams: true });
 
@@ -59,7 +62,7 @@ router
    * @apiError (Bad Request 400)   ValidationError  Some parameters may contain invalid values
    * @apiError (Unauthorized 401)  Unauthorized     Only authenticated users can create the data
    */
-  .post(authorize(), validate(createArticle), controller.create);
+  .post(authorize(), validate(createArticle), upload.single('image'), controller.create);
 
 router
   .route('/:articleId')

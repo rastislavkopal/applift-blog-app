@@ -32,6 +32,7 @@ Contains:
  - Auth & Auth using JWT
 
 Not implemented:
+ - GraphQL API ... tbh, I do not have much experience with GraphQL, but super-excited to learn!
  - Multitentant app 
  - Edit article, delete article -> its quite straightforward and repetitive task
  - End-to-end tests using Cypress, but I have some experience with it, example on my github for a different project (https://github.com/rastislavkopal/petclinic_cypress_fe_testing)

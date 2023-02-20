@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Button, Form, Input, Select, message,
+  Button, Form, Input, Select, message, Upload,
 } from 'antd';
+import { AiOutlineInbox } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import useFetchWrapper from '../../../_helpers/fetch_wrapper';
 import authAtom from '../../../_state/auth';
 
 const { Option } = Select;
+
+const normFile = (e) => {
+  if (Array.isArray(e)) {
+    return e;
+  }
+  return e?.fileList;
+};
 
 export default function CreateArticle() {
   const fetchWrapper = useFetchWrapper();
@@ -22,6 +30,11 @@ export default function CreateArticle() {
   const onFinish = (values) => {
     const mergedValues = values;
     mergedValues.language = language;
+    const image = {
+      name: values.image[0].name,
+      buffer: values.image[0].thumbUrl,
+    };
+    mergedValues.image = image;
 
     fetchWrapper.post(`${process.env.REACT_APP_API_BASE}/v1/articles`, mergedValues)
       .then(() => message.success('Successfully added new article'))
@@ -56,6 +69,21 @@ export default function CreateArticle() {
         ]}
       >
         <Input />
+      </Form.Item>
+      <Form.Item
+        name="image"
+        label="Image"
+        valuePropName="fileList"
+        getValueFromEvent={normFile}
+        extra="longgggggggggggggggggggggggggggggggggg"
+      >
+        <Upload
+          name="logo"
+          listType="picture"
+          beforeUpload={() => false}
+        >
+          <Button icon={<AiOutlineInbox />}>Click to upload</Button>
+        </Upload>
       </Form.Item>
       <Form.Item
         label="Language"
