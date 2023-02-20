@@ -47,6 +47,20 @@ define({ "api": [
             "optional": false,
             "field": "language",
             "description": "<p>Article language</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>Article title</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "image",
+            "description": "<p>Article image -&gt; {name, buffer}</p>"
           }
         ]
       }
@@ -95,6 +109,13 @@ define({ "api": [
             "optional": false,
             "field": "language",
             "description": "<p>Language of article</p>"
+          },
+          {
+            "group": "Created 201",
+            "type": "Object",
+            "optional": false,
+            "field": "imageId",
+            "description": "<p>Object of an image</p>"
           },
           {
             "group": "Created 201",
@@ -253,6 +274,13 @@ define({ "api": [
             "optional": false,
             "field": "comments",
             "description": "<p>Number of comments</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Object",
+            "optional": false,
+            "field": "imageId",
+            "description": "<p>Object of an image</p>"
           },
           {
             "group": "Success 200",
@@ -522,6 +550,13 @@ define({ "api": [
             "optional": false,
             "field": "comments",
             "description": "<p>Number of comments</p>"
+          },
+          {
+            "group": "Created 201",
+            "type": "Object",
+            "optional": false,
+            "field": "imageId",
+            "description": "<p>Object of an image</p>"
           },
           {
             "group": "Created 201",

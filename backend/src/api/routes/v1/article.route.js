@@ -50,6 +50,8 @@ router
    *
    * @apiParam  {String{6..16448}}                text          Article text
    * @apiParam  {String=cz,sk,en}                 language      Article language
+   * @apiParam  {String}                          title         Article title
+   * @apiParam  {Object}                          image         Article image -> {name, buffer}
    *
    * @apiSuccess (Created 201) {String}  _id            Article id
    * @apiSuccess (Created 201) {String}  userId         Id of user who added the article
@@ -57,6 +59,7 @@ router
    * @apiSuccess (Created 201) {String}  text           Text of article
    * @apiSuccess (Created 201) {Number}  comments       Number of comments
    * @apiSuccess (Created 201) {String}  language       Language of article
+   * @apiSuccess (Created 201) {Object}  imageId        Object of an image
    * @apiSuccess (Created 201) {Date}    createdAt      Timestamp
    *
    * @apiError (Bad Request 400)   ValidationError  Some parameters may contain invalid values
@@ -81,6 +84,7 @@ router
    * @apiSuccess {String}  text           Text of article
    * @apiSuccess {String}  title          Title of article
    * @apiSuccess {Number}  comments       Number of comments
+   * @apiSuccess {Object}  imageId        Object of an image
    * @apiSuccess {String}  language       Language of article
    * @apiSuccess {Date}    createdAt      Timestamp
    *
@@ -106,6 +110,7 @@ router
    * @apiSuccess (Created 201) {String}  text           Text of article
    * @apiSuccess (Created 201) {String}  title           Title of article
    * @apiSuccess (Created 201) {Number}  comments       Number of comments
+   * @apiSuccess (Created 201) {Object}  imageId        Object of an image
    * @apiSuccess (Created 201) {String}  language       Language of article
    * @apiSuccess (Created 201) {Date}    createdAt      Timestamp
    *
