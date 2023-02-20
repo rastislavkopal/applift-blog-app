@@ -12,8 +12,8 @@ Contains
 Contains:
  - CI (Github actions) pipeline is set-up and ready, but would need separate repo for backend itself.
  - Project structure used by (https://github.com/danielfsousa/express-rest-boilerplate -> auth and project struct) -> its a repository that I use always for my personal projects 
- - System docs in ./backend/uml_design folder -> ER diagrams and use cases
- - UML docs can be generate in backend folder using `yarn docs` -> open in browser: backend/docs/index.html
+ - System docs in ./backend/uml_design folder -> ER diagrams and use cases (PlantUML scripting language for UML)
+ - API docs can be generate in backend folder using `yarn docs` -> open in browser: backend/docs/index.html
  - You can run the backend as docker-compose that will create both MongoDB and api service
  - To run backend, follow instruction in ./backend/readme.md file
  - some integration tests in that can be run by `yarn test:integration`
