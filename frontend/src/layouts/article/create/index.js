@@ -75,7 +75,12 @@ export default function CreateArticle() {
         label="Image"
         valuePropName="fileList"
         getValueFromEvent={normFile}
-        extra="longgggggggggggggggggggggggggggggggggg"
+        extra="Submit an image"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
       >
         <Upload
           name="logo"
@@ -103,6 +108,11 @@ export default function CreateArticle() {
       <Form.Item
         name="text"
         label="Article text"
+        rules={[
+          {
+            required: true,
+          },
+        ]}
       >
         <Input.TextArea rows={8} id="rawTextData" />
       </Form.Item>
